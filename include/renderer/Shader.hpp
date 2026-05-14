@@ -7,7 +7,6 @@
 #include <iostream>
 #include <sstream>
 
-
 class Shader{
 	public:
 	unsigned int ID;
