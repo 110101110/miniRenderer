@@ -60,9 +60,10 @@ int main()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	ImGui::StyleColorsLight();
 	// Setup Platform/Renderer backends
-	ImGui_ImplGlfw_InitForOpenGL(windwo, true);
-	ImGui_ImplOpenGL3_Init("410 core");
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 410 core");
 
+	float clearColor[4] = {0.86f, 0.15f, 0.53f, 0.8f};
 	//render loop
 	while (!glfwWindowShouldClose(window)){
 
@@ -87,8 +88,8 @@ int main()
 		ImGui::End();
 
 		// render background
-		glClearColor(0.86, 0.15, 0.53, 0.8);
-		glClear(GL_COLOR_BUFFER_BIT || GL_DEPTH_BUFFER_BIT);
+		glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//render with imgui
 		ImGui::Render();

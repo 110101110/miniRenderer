@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-#include <glm/matrix_transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 
 enum Camera_Movement { FORWARD, BACKWARD, LEFT, RIGHT} ;
@@ -39,7 +39,7 @@ class Camera{
 
 	glm::mat4 GetViewMatrix() const
 	{
-		return glm::LookAt(Position, Postion + Front, Up);
+		return glm::lookAt(Position, Position + Front, Up);
 	}
 
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime)

@@ -16,7 +16,7 @@ endif()
 
 # --- 3. FIND SYSTEM DEPENDENCIES ---
 find_package(glfw3 REQUIRED)
-find_package(glm REQUIRED)
+find_package(glm CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 
 # --- 4. INCLUDE DIRECTORIES ---
@@ -28,7 +28,7 @@ include_directories(
 )
 
 # --- 5. COLLECT SOURCES ---
-file(GLOB_RECURSE SOURCES
+file(GLOB SOURCES
    "src/*.cpp"
     "src/*.c"
     "external/src/*.c"
