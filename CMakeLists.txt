@@ -4,52 +4,50 @@ project(miniRenderer LANGUAGES C CXX)
 # --- 1. GLOBAL SETTINGS ---
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # Useful for VSCode Intellisense
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# --- 2. MAC SPECIFICS & HOMEBREW ---
+# --- 2. APPLE SILICON & MAC SPECIFICS ---
 if(APPLE)
-    # Tell CMake where Homebrew lives on Apple Silicon
     set(CMAKE_PREFIX_PATH "/opt/homebrew")
-
-    # Silence Apple's "OpenGL is deprecated" warnings
+    set(CMAKE_OSX_ARCHITECTURES "arm64")
     add_definitions(-DGL_SILENCE_DEPRECATION)
-
-    # Ensure RPATH is set so the app finds .dylib files
     set(CMAKE_MACOSX_RPATH 1)
 endif()
 
-# --- 3. FIND SYSTEM DEPENDENCIES (BREW) ---
+# --- 3. FIND SYSTEM DEPENDENCIES ---
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
 
 # --- 4. INCLUDE DIRECTORIES ---
-# This tells the compiler where to look for .h and .hpp files
 include_directories(
     include
     external/include
+    external/imgui
+    external/imgui/backends
 )
 
-# --- 5. COLLECT SOURCE FILES ---
-# We use recursive globbing to find all .cpp and .c (for glad)
+# --- 5. COLLECT SOURCES ---
 file(GLOB_RECURSE SOURCES
-    "src/main.cpp"
-    # "src/*.c"
+   "src/*.cpp"
+    "src/*.c"
     "external/src/*.c"
-    # "external/imgui/*.cpp"
+    "external/imgui/*.cpp"
 )
 
+list(APPEND SOURCES
+    "external/imgui/backends/imgui_impl_glfw.cpp"
+    "external/imgui/backends/imgui_impl_opengl3.cpp"
+)
 # --- 6. THE EXECUTABLE ---
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # --- 7. LINK LIBRARIES ---
-# This "stitches" the libraries into your final binary
 target_link_libraries(${PROJECT_NAME} PRIVATE
     glfw
     glm::glm
     ${OPENGL_LIBRARIES}
 )
-
 
 if(APPLE)
     target_link_libraries(${PROJECT_NAME} PRIVATE
