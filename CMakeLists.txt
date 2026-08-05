@@ -30,9 +30,10 @@ include_directories(
 # --- 5. COLLECT SOURCES ---
 file(GLOB SOURCES
    "src/*.cpp"
-    "src/*.c"
-    "external/src/*.c"
-    "external/imgui/*.cpp"
+   "src/*.c"
+   "src/renderer/*.cpp"
+   "external/src/*.c"
+   "external/imgui/*.cpp"
 )
 
 list(APPEND SOURCES

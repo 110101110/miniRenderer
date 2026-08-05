@@ -6,8 +6,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath){
 	std::ifstream vShaderFile;
 	std::ifstream fShaderFile;
 
-	vShaderFile.exceptions(std::ifstream::failbit || std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit || std::ifstream::badbit);
+	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
 	try{
 		vShaderFile.open(vertexPath);
@@ -21,7 +21,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath){
 		fragmentCode = fShaderStream.str();
 	}
 	catch (std::ifstream::failure& e){
-		td::cerr << "ERROR::SHADER::FILE_NOT_READ" << std::endl;
+		std::cerr << "ERROR::SHADER::FILE_NOT_READ" << std::endl;
 	}
 
 	const char* vShaderCode = vertexCode.c_str();
